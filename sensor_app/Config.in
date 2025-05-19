@@ -1,0 +1,4 @@
+config BR2_PACKAGE_SENSOR_APP
+    bool "sensor_app"
+    help
+      A package containing BH1750, DHT11, and LED applications.

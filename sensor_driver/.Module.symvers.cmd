@@ -1,0 +1,1 @@
+cmd_/home/user/buildroot/package/sensor_driver/Module.symvers :=  sed 's/ko$$/o/'  /home/user/buildroot/package/sensor_driver/modules.order | scripts/mod/modpost -m     -o /home/user/buildroot/package/sensor_driver/Module.symvers -e -i Module.symvers -T - 

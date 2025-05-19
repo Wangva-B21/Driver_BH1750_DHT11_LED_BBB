@@ -1,0 +1,5 @@
+config BR2_PACKAGE_SENSOR_DRIVER
+    bool "sensor_driver"
+    help
+      Build sensor kernel modules (bh1750, dht11, led drivers).
+

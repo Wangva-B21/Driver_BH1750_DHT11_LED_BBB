@@ -1,0 +1,1 @@
+cmd_/home/user/buildroot/package/sensor_driver/bh1750_driver.mod := printf '%s\n'   bh1750_driver.o | awk '!x[$$0]++ { print("/home/user/buildroot/package/sensor_driver/"$$0) }' > /home/user/buildroot/package/sensor_driver/bh1750_driver.mod

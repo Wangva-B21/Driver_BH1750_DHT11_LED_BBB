@@ -1,0 +1,1 @@
+cmd_/home/user/buildroot/package/sensor_driver/led_driver.mod := printf '%s\n'   led_driver.o | awk '!x[$$0]++ { print("/home/user/buildroot/package/sensor_driver/"$$0) }' > /home/user/buildroot/package/sensor_driver/led_driver.mod

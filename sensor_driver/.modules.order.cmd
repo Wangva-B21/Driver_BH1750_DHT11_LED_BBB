@@ -1,0 +1,1 @@
+cmd_/home/user/buildroot/package/sensor_driver/modules.order := {   echo /home/user/buildroot/package/sensor_driver/bh1750_driver.ko;   echo /home/user/buildroot/package/sensor_driver/dht11_driver.ko;   echo /home/user/buildroot/package/sensor_driver/led_driver.ko; :; } > /home/user/buildroot/package/sensor_driver/modules.order

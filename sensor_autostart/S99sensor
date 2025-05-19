@@ -1,0 +1,78 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          sensor_autostart
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: Start sensor apps, load kernel modules, and configure USB Ethernet at boot
+### END INIT INFO
+
+MODULES_DIR="/lib/modules/6.1.46/kernel/drivers/sensor"
+
+start_apps() {
+  while true; do
+    echo "[autostart] Chạy app_bh1750..."
+    /usr/bin/app_bh1750 start
+    echo "[autostart] app_bh1750 thoát, khởi động lại sau 2 giây..."
+    sleep 2
+  done &
+  
+  while true; do
+    echo "[autostart] Chạy app_dht11..."
+    /usr/bin/app_dht11 start
+    echo "[autostart] app_dht11 thoát, khởi động lại sau 2 giây..."
+    sleep 2
+  done &
+
+  while true; do
+    echo "[autostart] Chạy app_led..."
+    /usr/bin/app_led start
+    echo "[autostart] app_led thoát, khởi động lại sau 2 giây..."
+    sleep 2
+  done &
+}
+
+case "$1" in
+  start)
+    echo "[autostart] Nạp các module kernel sensor..."
+    insmod $MODULES_DIR/bh1750_driver.ko
+    insmod $MODULES_DIR/dht11_driver.ko
+    insmod $MODULES_DIR/led_driver.ko
+    sleep 3
+    
+    echo "[autostart] Cấu hình USB Ethernet..."
+    modprobe g_ether
+    sleep 1
+    ip addr flush dev usb0
+    ip addr add 192.168.7.2/24 dev usb0
+    ip link set usb0 up
+    sleep 3
+    
+    echo "[autostart] Khởi chạy các ứng dụng sensor..."
+    start_apps
+    ;;
+
+  stop)
+    echo "[autostart] Dừng các ứng dụng sensor..."
+    killall app_bh1750 app_dht11 app_led
+
+    echo "[autostart] Gỡ các module kernel sensor..."
+    rmmod bh1750_driver
+    rmmod dht11_driver
+    rmmod led_driver
+    ;;
+
+  restart)
+    $0 stop
+    $0 start
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
+

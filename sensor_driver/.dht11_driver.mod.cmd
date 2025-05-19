@@ -1,0 +1,1 @@
+cmd_/home/user/buildroot/package/sensor_driver/dht11_driver.mod := printf '%s\n'   dht11_driver.o | awk '!x[$$0]++ { print("/home/user/buildroot/package/sensor_driver/"$$0) }' > /home/user/buildroot/package/sensor_driver/dht11_driver.mod

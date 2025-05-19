@@ -1,0 +1,4 @@
+config BR2_PACKAGE_SENSOR_AUTOSTART
+    bool "sensor_autostart"
+    help
+      This package installs a script to auto-start sensor apps on BBB.
